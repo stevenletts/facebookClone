@@ -4,7 +4,7 @@ import RightSideBar from "../Components/RightSideBar";
 
 const Home = (): JSX.Element => {
   return (
-    <div className="grid grid-cols-4 bg-gray-300 h-screen">
+    <div className="grid grid-cols-4 mt-10">
       <LeftSideBar />
       <MainSection />
       <RightSideBar />

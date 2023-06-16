@@ -1,5 +1,15 @@
+import NewPost from "./NewPost";
+import Post from "./Post";
+
 const MainSection = (): JSX.Element => {
-  return <div className="bg-white col-span-2 ">Main Section Placeholder</div>;
+  return (
+    <div className="col-span-2">
+      <NewPost />
+      <Post />
+      <Post />
+      <Post />
+    </div>
+  );
 };
 
 export default MainSection;
