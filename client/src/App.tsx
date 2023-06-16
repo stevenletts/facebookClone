@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import NavBar from "./Components/NavBar";
+import Home from "./Pages/Home";
 
 const Layout = () => {
   return (
-    <div className="md:w-full mx-auto">
+    <div className="md:w-full mx-auto h-screen">
       <NavBar />
       <Outlet />
     </div>
@@ -16,10 +17,10 @@ const router = createBrowserRouter([
     // errorElement: <Error />,
     element: <Layout />,
     children: [
-      // {
-      //   path: "/",
-      //   element: <Home />,
-      // },
+      {
+        path: "/",
+        element: <Home />,
+      },
       // {
       //   path: "/profile/:id",
       //   element: <Profile />,

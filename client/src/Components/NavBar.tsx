@@ -6,7 +6,7 @@ import NotificationIcons from "./NotificationIcons";
 
 const NavBar = (): JSX.Element => {
   return (
-    <div className="bg-blue-600 ">
+    <div className="bg-blue-600 sticky">
       <nav className="flex items-center w-11/12 mx-auto h-10 justify-evenly">
         <Link to="/">
           <Icon path={mdiHome} size={1.25} color="white" />

@@ -13,9 +13,7 @@ const SearchBar = (): JSX.Element => {
 
   return (
     <form className="w-9/12 flex" onSubmit={handleSearch}>
-      <label htmlFor="search-site" className="absolute left-[10000px]">
-        Search Bar
-      </label>
+      <label className="absolute left-[10000px] hidden">Search Bar</label>
       <input
         className="bg-white w-full pl-2 "
         onChange={({ target }) => setSearch(target.value)}
