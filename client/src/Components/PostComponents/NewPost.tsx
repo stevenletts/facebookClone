@@ -6,7 +6,7 @@ import { mdiTypewriter, mdiCamera } from "@mdi/js";
 const NewPost = (): JSX.Element => {
   const [post, setPostText] = useState("");
   return (
-    <div className="grid grid-cols-3 grid-rows-3 bg-white m-4 rounded h-32 ">
+    <div className="grid grid-cols-3 grid-rows-3 bg-white m-4 rounded h-40 ">
       <div className="font-bold p-2 flex items-center gap-2">
         <Icon path={mdiTypewriter} size={1} />
         <p>Update Status</p>
@@ -23,6 +23,11 @@ const NewPost = (): JSX.Element => {
           value={post}
         ></textarea>
       </section>
+      <div className="flex justify-end">
+        <button className="bg-green-500 text-white rounded-lg w-16 col-span-3 mr-2 mb-2">
+          Post
+        </button>
+      </div>
     </div>
   );
 };

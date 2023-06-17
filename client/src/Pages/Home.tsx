@@ -1,6 +1,6 @@
-import LeftSideBar from "../Components/LeftSideBar";
+import LeftSideBar from "../Components/HomePageComponents/LeftSideBar";
 import MainSection from "../Components/MainSection";
-import RightSideBar from "../Components/RightSideBar";
+import RightSideBar from "../Components/HomePageComponents/RightSideBar";
 
 const Home = (): JSX.Element => {
   return (
