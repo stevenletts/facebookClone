@@ -1,5 +1,6 @@
 import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
+import NewComment from "./NewComment";
 
 const PostComments = (): JSX.Element => {
   return (
@@ -29,6 +30,7 @@ const PostComments = (): JSX.Element => {
           <button className="text-blue-600">like</button>
         </div>
       </div>
+      <NewComment />
     </div>
   );
 };

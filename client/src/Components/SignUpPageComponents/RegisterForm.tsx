@@ -13,6 +13,7 @@ const RegisterForm = (): JSX.Element => {
     values.forEach((hook) => console.log(hook.value));
     values.forEach((hook) => hook.onReset());
   };
+
   return (
     <>
       <h1>Sign Up!</h1>

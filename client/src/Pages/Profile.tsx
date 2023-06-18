@@ -12,7 +12,6 @@ const Profile = (): JSX.Element => {
         ></img>
         <div className="absolute bottom-1.5 right-1.5 ">
           <button className="bg-white p-2">Friends </button>
-
           <button className="bg-white p-2"> Message</button>
         </div>
       </div>
