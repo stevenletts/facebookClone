@@ -1,10 +1,19 @@
 import Icon from "@mdi/react";
 import { mdiHome } from "@mdi/js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import NotificationIcons from "./NotificationIcons";
+import { logout } from "../../reducers/authReducer";
+import { useAppDispatch } from "../../hooks/useField";
 
 const NavBar = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+    dispatch(logout({ token: "", fullName: "", id: "" }));
+  };
   return (
     <div className="bg-blue-600 fixed w-full top-0 z-[1]">
       <nav className="flex items-center w-11/12 mx-auto h-10 justify-evenly">
@@ -13,7 +22,10 @@ const NavBar = (): JSX.Element => {
         </Link>
         <SearchBar />
         <NotificationIcons />
-        <button className="bg-red-500 text-white rounded-lg w-16">
+        <button
+          className="bg-red-500 text-white rounded-lg w-16"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </nav>

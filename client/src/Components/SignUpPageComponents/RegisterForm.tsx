@@ -1,16 +1,24 @@
-import { useField } from "../../hooks/useField";
+import { useAppDispatch, useField } from "../../hooks/useField";
+import { handleRegister } from "../../reducers/authReducer";
 
 const RegisterForm = (): JSX.Element => {
-  const firstName = useField("text");
-  const secondName = useField("text");
+  const dispatch = useAppDispatch();
+  const fullName = useField("text");
   const email = useField("email");
   const password = useField("password");
   const birthday = useField("date");
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const values = [firstName, secondName, email, password, birthday];
-    values.forEach((hook) => console.log(hook.value));
+    const values = [fullName, email, password, birthday];
+    dispatch(
+      handleRegister({
+        fullName: fullName.value,
+        email: email.value,
+        password: password.value,
+        birthday: birthday.value,
+      })
+    );
     values.forEach((hook) => hook.onReset());
   };
 
@@ -23,11 +31,14 @@ const RegisterForm = (): JSX.Element => {
       >
         <h1 className="font-bold text-2xl ">Sign Up!</h1>
 
-        <div className="flex gap-4 pl-2 ">
-          <label htmlFor="firstName">First Name: </label>
-          <input id="firstName" className="rounded" required {...firstName} />
-          <label htmlFor="lastName">Last Name: </label>
-          <input id="lastName" className="rounded" required {...secondName} />
+        <div className="flex gap-4 pl-2">
+          <label htmlFor="fullName">Full Name: </label>
+          <input
+            id="fullName"
+            className="rounded w-[36.1rem]"
+            required
+            {...fullName}
+          />
         </div>
 
         <div className="flex gap-4 pl-2">
@@ -47,6 +58,7 @@ const RegisterForm = (): JSX.Element => {
             className="rounded w-[36.1rem]"
             required
             {...password}
+            min={3}
           />
         </div>
         <div className="flex gap-4 pl-2">

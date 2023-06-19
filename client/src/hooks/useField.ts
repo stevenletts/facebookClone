@@ -1,4 +1,6 @@
 import { ChangeEvent, useState } from "react";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
 
 export const useField = (type: string) => {
   // can add a second param to set value?
@@ -20,3 +22,7 @@ export const useField = (type: string) => {
     onReset,
   };
 };
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

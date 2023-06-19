@@ -4,11 +4,14 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import SignIn from "./Pages/SignIn";
 import Messages from "./Pages/Messages";
-
-const loggedIn = true;
+import { useAppSelector } from "./hooks/useField";
 
 const Layout = () => {
-  if (!loggedIn) {
+  const auth = useAppSelector((state) => state.auth);
+
+  console.log("baseURL: ", import.meta.env.VITE_BASE_URL);
+
+  if (auth.token === "") {
     return <SignIn />;
   }
 

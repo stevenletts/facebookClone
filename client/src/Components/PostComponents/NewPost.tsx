@@ -3,13 +3,17 @@ import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiTypewriter, mdiCamera } from "@mdi/js";
 import TextAreaForm from "../TextAreaForm";
+import postService from "../../services/postService";
+import { useAppSelector } from "../../hooks/useField";
 
 const NewPost = (): JSX.Element => {
   const [post, setPostText] = useState("");
+  const { id } = useAppSelector((state) => state.auth);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log(post);
+    postService.makePost(post, id);
     setPostText("");
   };
   return (

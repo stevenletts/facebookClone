@@ -1,13 +1,16 @@
+import { useAppDispatch } from "../../hooks/useField";
 import { useField } from "../../hooks/useField";
+import { handleLogin } from "../../reducers/authReducer";
 
 const SignInBar = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const email = useField("email");
   const password = useField("password");
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     const hooks = [email, password];
-    hooks.forEach((hook) => console.log(hook.value));
+    dispatch(handleLogin({ email: email.value, password: password.value }));
     hooks.forEach((hook) => hook.onReset());
   };
 
