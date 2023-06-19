@@ -2,24 +2,32 @@ import mongoose, { InferSchemaType } from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: { type: String, required: true },
-    secondName: { type: String, required: true },
+    fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    passwordHash: { type: String, required: true },
     profilePicture: { type: String },
     bannerPicture: { type: String },
     friends: { type: [mongoose.Schema.Types.ObjectId], defaultValue: [] },
     profileDescription: { type: String },
-    birthday: { type: Date, required: true },
+    birthday: { type: String, required: true },
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Blog",
+        ref: "Post",
       },
     ],
   },
   { timestamps: true }
 );
+
+UserSchema.set("toJSON", {
+  transform: (doc, returnedObj) => {
+    returnedObj.id = returnedObj._id.toString();
+    delete returnedObj._id;
+    delete returnedObj.__v;
+    delete returnedObj.passwordHash;
+  },
+});
 
 type User = InferSchemaType<typeof UserSchema>;
 

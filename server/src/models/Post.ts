@@ -10,6 +10,14 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+PostSchema.set("toJSON", {
+  transform: (doc, returnedObj) => {
+    returnedObj.id = returnedObj._id.toString();
+    delete returnedObj._id;
+    delete returnedObj.__v;
+  },
+});
+
 type Post = InferSchemaType<typeof PostSchema>;
 
 const Post = mongoose.model("Post", PostSchema);
