@@ -31,6 +31,7 @@ const signUp = async (request: Request, response: Response) => {
     token,
     id: newUser.id,
     fullName: newUser.fullName,
+    friends: newUser.friends,
   });
 };
 
@@ -54,6 +55,7 @@ const signIn = async (request: Request, response: Response) => {
     token,
     id: user.id,
     fullName: user.fullName,
+    friends: user.friends,
   });
 };
 

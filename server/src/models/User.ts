@@ -10,12 +10,6 @@ const UserSchema = new mongoose.Schema(
     friends: { type: [mongoose.Schema.Types.ObjectId], defaultValue: [] },
     profileDescription: { type: String },
     birthday: { type: String, required: true },
-    posts: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
-      },
-    ],
   },
   { timestamps: true }
 );
