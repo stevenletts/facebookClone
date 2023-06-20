@@ -16,7 +16,9 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.set("toJSON", {
   transform: (doc, returnedObj) => {
-    returnedObj.id = returnedObj._id.toString();
+    if (typeof returnedObj.id !== "string") {
+      returnedObj.id = returnedObj._id.toString();
+    }
     delete returnedObj._id;
     delete returnedObj.__v;
     delete returnedObj.passwordHash;
