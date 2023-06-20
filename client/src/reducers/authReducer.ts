@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from "@reduxjs/toolkit";
 import authService from "../services/authService";
+import userService from "../services/userService";
 import { Credentials, SignUpDetails } from "../types";
+
+const initialState = { token: "", fullName: "", id: "", friends: [""] };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { token: "", fullName: "", id: "" },
+  initialState,
   reducers: {
     login(_state, action) {
       return action.payload;
@@ -12,16 +16,24 @@ const authSlice = createSlice({
     register(_state, action) {
       return action.payload;
     },
-    logout(_state, action) {
-      return action.payload;
+    logout() {
+      return initialState;
+    },
+    addFriend(state, action) {
+      state.friends = state.friends.concat(action.payload);
+    },
+    removeFriend(state, action) {
+      state.friends = state.friends.filter(
+        (friend) => friend !== action.payload
+      );
     },
   },
 });
 
-export const { login, register, logout } = authSlice.actions;
+export const { login, register, logout, addFriend, removeFriend } =
+  authSlice.actions;
 
 export const handleLogin = (credentials: Credentials) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async (dispatch: any) => {
     try {
       const user = await authService.login(credentials);
@@ -33,13 +45,36 @@ export const handleLogin = (credentials: Credentials) => {
 };
 
 export const handleRegister = (newUserFormData: SignUpDetails) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async (dispatch: any) => {
     try {
       const user = await authService.register(newUserFormData);
       dispatch(register(user));
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+//no accepting friend requests implemented because there are no active users
+export const handleAddFriend = (userId: string, friendId: string) => {
+  return async (dispatch: any) => {
+    try {
+      const newFriend = await userService.addFriend(userId, friendId);
+      dispatch(addFriend(newFriend));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const handleRemoveFriend = (userId: string, friendId: string) => {
+  return async (dispatch: any) => {
+    try {
+      console.log("or here");
+      const oldFriend = await userService.removeFriend(userId, friendId);
+      dispatch(removeFriend(oldFriend));
+    } catch (e) {
+      console.log(e);
     }
   };
 };

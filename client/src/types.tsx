@@ -19,10 +19,20 @@ export interface SignUpDetails {
 }
 
 export interface User {
+  token?: string;
   fullName?: string;
   birthday?: string;
   id?: string;
   friends?: string[];
   posts?: string[];
   createdAt?: string;
+}
+
+export interface PostType {
+  post: string;
+  comments: string[];
+  id: string;
+  likes: string[];
+  createdAt: string;
+  user: User;
 }

@@ -23,13 +23,15 @@ const LeftSideBar = (): JSX.Element => {
         <h1 className="font-bold pb-2">Pages</h1>
         <ul>
           <li className={liStyle}>
-            <a href="/">News Feed</a>
+            <Link to="/">
+              <p>News Feed</p>
+            </Link>
           </li>
           <li className={liStyle}>
             <a href="">Messages</a>
           </li>
           <li className={liStyle}>
-            <a href="">Friends</a>
+            <p>Friends</p>
           </li>
         </ul>
       </section>

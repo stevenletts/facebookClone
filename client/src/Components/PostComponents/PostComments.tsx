@@ -1,35 +1,25 @@
 import Icon from "@mdi/react";
-import { mdiAccountCircle } from "@mdi/js";
+import { mdiThumbUp } from "@mdi/js";
 import NewComment from "./NewComment";
+import Comment from "./Comment";
 
-const PostComments = (): JSX.Element => {
+const PostComments = ({
+  likes,
+  comments,
+}: {
+  likes: string[];
+  comments: string[];
+}): JSX.Element => {
   return (
     <div className="bg-gray-100 w-full p-2">
-      <p className="border-b border-slate-200 w-full mb-2">
-        This person likes this
+      <p className="border-b border-slate-200 w-full mb-2 flex gap-2">
+        <Icon path={mdiThumbUp} size={1} />
+        {likes.length}
       </p>
 
-      <div className="mb-2 flex-col">
-        <section className="flex gap-2">
-          <Icon path={mdiAccountCircle} size={1} />
-          <p>User name This is Some Comment</p>
-        </section>
-        <div className="flex gap-2 pl-1">
-          <p className="text-slate-600">some time ago</p>
-          <button className="text-blue-600">like</button>
-        </div>
-      </div>
+      <Comment />
+      <Comment />
 
-      <div className="mb-2 flex-col">
-        <section className="flex gap-2">
-          <Icon path={mdiAccountCircle} size={1} />
-          <p>User name This is Some Comment</p>
-        </section>
-        <div className="flex gap-2 pl-1">
-          <p className="text-slate-600">some time ago</p>
-          <button className="text-blue-600">like</button>
-        </div>
-      </div>
       <NewComment />
     </div>
   );
