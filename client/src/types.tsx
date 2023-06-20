@@ -28,9 +28,23 @@ export interface User {
   createdAt?: string;
 }
 
+export interface UserDetails {
+  fullName: string;
+  id: string;
+}
+
+export interface CommentType {
+  comment: string;
+  createdAt: string;
+  likes: string[];
+  postId: string;
+  user: UserDetails;
+  id: string;
+}
+
 export interface PostType {
   post: string;
-  comments: string[];
+  comments: CommentType[];
   id: string;
   likes: string[];
   createdAt: string;

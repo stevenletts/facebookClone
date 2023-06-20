@@ -43,7 +43,7 @@ const Post = ({
       <div className="flex gap-4 items-center text-blue-600 p-2">
         <button onClick={handlePostLike}>Like</button>
       </div>
-      <PostComments likes={likes} comments={comments} />
+      <PostComments likes={likes} comments={comments} postId={id} />
     </div>
   );
 };
