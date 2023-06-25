@@ -2,6 +2,16 @@ import Post from "../models/Post";
 import User from "../models/User";
 import { Request, Response } from "express";
 
+const populateFactory = () => {
+  return {
+    comment: 1,
+    likes: 1,
+    user: 1,
+    post: 1,
+    createdAt: 1,
+  };
+};
+
 const newPost = async (request: Request, response: Response) => {
   const { post, id } = request.body;
   let newPost = await new Post({ post, user: id }).save();
@@ -28,13 +38,7 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
       .populate({
         path: "comments",
         populate: { path: "user", select: { fullName: 1, id: 1 } },
-        select: {
-          comment: 1,
-          likes: 1,
-          user: 1,
-          post: 1,
-          createdAt: 1,
-        },
+        select: populateFactory(),
       })
       .sort({
         createdAt: -1,
@@ -49,13 +53,7 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
     .populate({
       path: "comments",
       populate: { path: "user", select: { fullName: 1, id: 1 } },
-      select: {
-        comment: 1,
-        likes: 1,
-        user: 1,
-        post: 1,
-        createdAt: 1,
-      },
+      select: populateFactory(),
     })
     .sort({
       createdAt: -1,
@@ -65,7 +63,6 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
   return;
 };
 
-////// NEED TO SORT COMMENTS
 const getProfilePosts = async (request: Request, response: Response) => {
   const posts = await Post.find({ user: request.params.id })
     .populate("user", {
@@ -75,13 +72,7 @@ const getProfilePosts = async (request: Request, response: Response) => {
     .populate({
       path: "comments",
       populate: { path: "user", select: { fullName: 1, id: 1 } },
-      select: {
-        comment: 1,
-        likes: 1,
-        user: 1,
-        post: 1,
-        createdAt: 1,
-      },
+      select: populateFactory(),
     })
     .sort({
       createdAt: -1,

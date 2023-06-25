@@ -56,6 +56,7 @@ const signIn = async (request: Request, response: Response) => {
     id: user.id,
     fullName: user.fullName,
     friends: user.friends,
+    description: user.profileDescription,
   });
 };
 

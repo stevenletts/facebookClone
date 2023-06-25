@@ -8,4 +8,6 @@ userRouter.put("/friend/:id", userService.addFriend);
 
 userRouter.put("/unfriend/:id", userService.removeFriend);
 
+userRouter.delete("/accountDelete/:id", userService.deleteAccount);
+
 export default userRouter;

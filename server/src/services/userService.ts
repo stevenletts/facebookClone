@@ -1,4 +1,6 @@
+import Post from "../models/Post";
 import User from "../models/User";
+import Comment from "../models/Comment";
 import { Request, Response } from "express";
 
 const getOne = async (request: Request, response: Response) => {
@@ -56,4 +58,12 @@ const removeFriend = async (request: Request, response: Response) => {
   response.status(500);
 };
 
-export default { getOne, addFriend, removeFriend };
+const deleteAccount = async (request: Request, response: Response) => {
+  const id = request.params.id;
+  await User.findByIdAndDelete(id);
+  await Post.deleteMany({ user: id });
+  await Comment.deleteMany({ user: id });
+  response.status(200).json("user, posts, and commens deleted");
+};
+
+export default { getOne, addFriend, removeFriend, deleteAccount };
