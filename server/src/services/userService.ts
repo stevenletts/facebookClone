@@ -66,4 +66,24 @@ const deleteAccount = async (request: Request, response: Response) => {
   response.status(200).json("user, posts, and commens deleted");
 };
 
-export default { getOne, addFriend, removeFriend, deleteAccount };
+const updateAccount = async (request: Request, response: Response) => {
+  const id = request.params.id;
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    {
+      $set: request.body,
+    },
+    {
+      new: true,
+    }
+  );
+  response.status(200).json(updatedUser);
+};
+
+export default {
+  getOne,
+  addFriend,
+  removeFriend,
+  deleteAccount,
+  updateAccount,
+};

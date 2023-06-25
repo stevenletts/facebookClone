@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     profilePicture: { type: String },
     bannerPicture: { type: String },
     friends: { type: [mongoose.Schema.Types.ObjectId], defaultValue: [] },
-    profileDescription: { type: String },
+    profileDescription: { type: String, defaultValue: "" },
     birthday: { type: String, required: true },
   },
   { timestamps: true }
