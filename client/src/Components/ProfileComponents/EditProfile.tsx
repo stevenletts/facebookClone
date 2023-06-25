@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useField";
 import userService from "../../services/userService";
-import { logout } from "../../reducers/authReducer";
+import { handleUpdateProfile, logout } from "../../reducers/authReducer";
 import { clearPosts } from "../../reducers/currentPostReducer";
 import TextAreaForm from "../TextAreaForm";
 // import { ToastContainer, toast } from "react-toastify";
@@ -10,9 +10,10 @@ import TextAreaForm from "../TextAreaForm";
 
 interface IProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setProDesc: Dispatch<SetStateAction<string>>;
 }
 
-const EditProfile = ({ setOpen }: IProps) => {
+const EditProfile = ({ setOpen, setProDesc }: IProps) => {
   // add description, add profile image, add cover photo, and delete account
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -24,8 +25,12 @@ const EditProfile = ({ setOpen }: IProps) => {
     dispatch(clearPosts(null));
   };
 
-  const addDescription = () => {
-    return;
+  const addDescription = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    dispatch(handleUpdateProfile(auth.id, { profileDescription: desc }));
+
+    setProDesc(desc);
+    setDesc("");
   };
 
   return (
@@ -47,7 +52,7 @@ const EditProfile = ({ setOpen }: IProps) => {
           <TextAreaForm
             handleSubmit={addDescription}
             value={desc}
-            placeholder="what's on your mind?"
+            placeholder="Add a description"
             setValue={setDesc}
             buttonText="Update"
           />

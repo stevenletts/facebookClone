@@ -26,7 +26,7 @@ export interface IUser {
   friends?: string[];
   posts?: string[];
   createdAt?: string;
-  description?: string;
+  profileDescription?: string;
 }
 
 export interface UserDetails {

@@ -3,7 +3,7 @@ import MainSection from "../Components/MainSection";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import userService from "../services/userService";
-import { User } from "../types";
+import { IUser } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/useField";
 import { handleLoadPosts } from "../reducers/currentPostReducer";
@@ -12,7 +12,7 @@ import { handleAddFriend, handleRemoveFriend } from "../reducers/authReducer";
 const Profile = (): JSX.Element => {
   const { id } = useParams();
   const auth = useAppSelector((state) => state.auth);
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<IUser>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -21,8 +21,6 @@ const Profile = (): JSX.Element => {
   const buttonText = isFriend ? "Remove" : "Add";
 
   const addFriend = () => {
-    console.log("isFriend", isFriend);
-
     if (!isFriend) {
       dispatch(handleAddFriend(auth.id, id as string));
       return;

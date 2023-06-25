@@ -27,4 +27,15 @@ const deleteAccount = async (userId: string) => {
   return response.data;
 };
 
-export default { getOne, addFriend, removeFriend, deleteAccount };
+const updateAccount = async (id: string, updateData: unknown) => {
+  const response = await axios.put(`${baseurl}/${id}`, updateData);
+  return response.data;
+};
+
+export default {
+  getOne,
+  addFriend,
+  removeFriend,
+  deleteAccount,
+  updateAccount,
+};

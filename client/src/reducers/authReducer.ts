@@ -9,7 +9,7 @@ const initialState = {
   fullName: "",
   id: "",
   friends: [""],
-  description: "",
+  profileDescription: "",
 };
 
 const authSlice = createSlice({
@@ -34,13 +34,19 @@ const authSlice = createSlice({
       );
     },
     updateProfile(_state, action) {
-      console.log(action.payload);
+      return action.payload;
     },
   },
 });
 
-export const { login, register, logout, addFriend, removeFriend } =
-  authSlice.actions;
+export const {
+  login,
+  register,
+  logout,
+  addFriend,
+  removeFriend,
+  updateProfile,
+} = authSlice.actions;
 
 export const handleLogin = (credentials: Credentials) => {
   return async (dispatch: any) => {
@@ -87,8 +93,15 @@ export const handleRemoveFriend = (userId: string, friendId: string) => {
   };
 };
 
-export const handleUpdateProfile = (userId: string) => {
-  return userId;
+export const handleUpdateProfile = (userId: string, updateData: unknown) => {
+  return async (dispatch: any) => {
+    try {
+      const newProfile = await userService.updateAccount(userId, updateData);
+      dispatch(updateProfile(newProfile));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 export default authSlice.reducer;
