@@ -18,7 +18,7 @@ export interface SignUpDetails {
   birthday: string;
 }
 
-export interface User {
+export interface IUser {
   token?: string;
   fullName?: string;
   birthday?: string;
@@ -26,6 +26,7 @@ export interface User {
   friends?: string[];
   posts?: string[];
   createdAt?: string;
+  description?: string;
 }
 
 export interface UserDetails {
@@ -33,7 +34,7 @@ export interface UserDetails {
   id: string;
 }
 
-export interface CommentType {
+export interface IComment {
   comment: string;
   createdAt: string;
   likes: string[];
@@ -42,11 +43,11 @@ export interface CommentType {
   id: string;
 }
 
-export interface PostType {
+export interface IPost {
   post: string;
-  comments: CommentType[];
+  comments: IComment[];
   id: string;
   likes: string[];
   createdAt: string;
-  user: User;
+  user: IUser;
 }

@@ -10,6 +10,11 @@ const SignInBar = (): JSX.Element => {
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     const hooks = [email, password];
+    if ((email.value && password.value) === "") {
+      // guest login
+      dispatch(handleLogin({ email: "email@email.com", password: "password" }));
+      return;
+    }
     dispatch(handleLogin({ email: email.value, password: password.value }));
     hooks.forEach((hook) => hook.onReset());
   };

@@ -2,7 +2,7 @@ import Icon from "@mdi/react";
 import { mdiThumbUp } from "@mdi/js";
 import NewComment from "./NewComment";
 import Comment from "./Comment";
-import { CommentType } from "../../types";
+import { IComment } from "../../types";
 
 const PostComments = ({
   likes,
@@ -10,7 +10,7 @@ const PostComments = ({
   postId,
 }: {
   likes: string[];
-  comments: CommentType[];
+  comments: IComment[];
   postId: string;
 }): JSX.Element => {
   return (

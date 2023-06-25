@@ -1,6 +1,6 @@
 import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
-import { CommentType } from "../../types";
+import { IComment } from "../../types";
 import { Link } from "react-router-dom";
 import formatDistance from "date-fns/formatDistance";
 import { useAppDispatch, useAppSelector } from "../../hooks/useField";
@@ -16,7 +16,7 @@ const Comment = ({
   likes,
   user,
   postId,
-}: CommentType): JSX.Element => {
+}: IComment): JSX.Element => {
   const dateStr = formatDistance(new Date(createdAt), new Date());
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();

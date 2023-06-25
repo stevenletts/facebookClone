@@ -4,7 +4,13 @@ import authService from "../services/authService";
 import userService from "../services/userService";
 import { Credentials, SignUpDetails } from "../types";
 
-const initialState = { token: "", fullName: "", id: "", friends: [""] };
+const initialState = {
+  token: "",
+  fullName: "",
+  id: "",
+  friends: [""],
+  description: "",
+};
 
 const authSlice = createSlice({
   name: "auth",
@@ -26,6 +32,9 @@ const authSlice = createSlice({
       state.friends = state.friends.filter(
         (friend) => friend !== action.payload
       );
+    },
+    updateProfile(_state, action) {
+      console.log(action.payload);
     },
   },
 });
@@ -70,13 +79,16 @@ export const handleAddFriend = (userId: string, friendId: string) => {
 export const handleRemoveFriend = (userId: string, friendId: string) => {
   return async (dispatch: any) => {
     try {
-      console.log("or here");
       const oldFriend = await userService.removeFriend(userId, friendId);
       dispatch(removeFriend(oldFriend));
     } catch (e) {
       console.log(e);
     }
   };
+};
+
+export const handleUpdateProfile = (userId: string) => {
+  return userId;
 };
 
 export default authSlice.reducer;

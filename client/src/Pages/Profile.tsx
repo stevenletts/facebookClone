@@ -1,4 +1,4 @@
-import ProfileLeftSideBar from "../Components/ProfileLeftSideBar";
+import ProfileLeftSideBar from "../Components/ProfileComponents/ProfileLeftSideBar";
 import MainSection from "../Components/MainSection";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";

@@ -1,7 +1,7 @@
 import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
 import PostComments from "./PostComments";
-import { PostType } from "../../types";
+import { IPost } from "../../types";
 import formatDistance from "date-fns/formatDistance";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/useField";
@@ -14,7 +14,7 @@ const Post = ({
   post,
   user,
   id,
-}: PostType): JSX.Element => {
+}: IPost): JSX.Element => {
   const dateStr = formatDistance(new Date(createdAt), new Date());
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();

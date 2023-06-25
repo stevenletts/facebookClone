@@ -22,4 +22,9 @@ const removeFriend = async (userId: string, friendId: string) => {
   return response.data;
 };
 
-export default { getOne, addFriend, removeFriend };
+const deleteAccount = async (userId: string) => {
+  const response = await axios.delete(`${baseurl}/accountdelete/${userId}`);
+  return response.data;
+};
+
+export default { getOne, addFriend, removeFriend, deleteAccount };

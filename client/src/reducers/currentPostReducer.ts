@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { PostType } from "../types";
+import { IPost } from "../types";
 import postService from "../services/postService";
 import commentService from "../services/commentService";
 
-const initialState: PostType[] = [];
+const initialState: IPost[] = [];
 
 const currentPostSlice = createSlice({
   name: "currentPosts",
@@ -60,6 +60,9 @@ const currentPostSlice = createSlice({
     loadPosts(_state, action) {
       return action.payload;
     },
+    clearPosts(_state, _action) {
+      return initialState;
+    },
   },
 });
 
@@ -71,6 +74,7 @@ export const {
   loadPosts,
   likeComment,
   removeLikeComment,
+  clearPosts,
 } = currentPostSlice.actions;
 
 export const handleLoadPosts = (id = "") => {
@@ -120,12 +124,12 @@ export const handleNewComment = (
   postId: string
 ) => {
   return async (dispatch: any) => {
-    const newCommentAdded = await commentService.makeComment(
+    const newComment = await commentService.makeComment(
       comment,
       userId,
       postId
     );
-    dispatch(addComment(newCommentAdded));
+    dispatch(addComment(newComment));
   };
 };
 
