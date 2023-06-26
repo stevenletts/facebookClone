@@ -2,6 +2,16 @@ import Post from "../models/Post";
 import User from "../models/User";
 import { Request, Response } from "express";
 
+const populateFactory = () => {
+  return {
+    comment: 1,
+    likes: 1,
+    user: 1,
+    post: 1,
+    createdAt: 1,
+  };
+};
+
 const newPost = async (request: Request, response: Response) => {
   const { post, id } = request.body;
   let newPost = await new Post({ post, user: id }).save();
@@ -25,6 +35,11 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
 
     const newsFeed = await Post.find({ user: { $in: friends } })
       .populate("user", { fullName: 1, id: 1 })
+      .populate({
+        path: "comments",
+        populate: { path: "user", select: { fullName: 1, id: 1 } },
+        select: populateFactory(),
+      })
       .sort({
         createdAt: -1,
       })
@@ -35,6 +50,11 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
 
   const newsFeed = await Post.find({})
     .populate("user", { fullName: 1, id: 1 })
+    .populate({
+      path: "comments",
+      populate: { path: "user", select: { fullName: 1, id: 1 } },
+      select: populateFactory(),
+    })
     .sort({
       createdAt: -1,
     })
@@ -49,9 +69,15 @@ const getProfilePosts = async (request: Request, response: Response) => {
       fullName: 1,
       id: 1,
     })
+    .populate({
+      path: "comments",
+      populate: { path: "user", select: { fullName: 1, id: 1 } },
+      select: populateFactory(),
+    })
     .sort({
       createdAt: -1,
     });
+
   if (!posts) {
     response.status(500);
     throw new Error("profile posts not found");

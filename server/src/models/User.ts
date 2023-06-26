@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     profilePicture: { type: String },
     bannerPicture: { type: String },
     friends: { type: [mongoose.Schema.Types.ObjectId], defaultValue: [] },
-    profileDescription: { type: String },
+    profileDescription: { type: String, defaultValue: "" },
     birthday: { type: String, required: true },
   },
   { timestamps: true }
@@ -16,7 +16,9 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.set("toJSON", {
   transform: (doc, returnedObj) => {
-    returnedObj.id = returnedObj._id.toString();
+    if (typeof returnedObj.id !== "string") {
+      returnedObj.id = returnedObj._id.toString();
+    }
     delete returnedObj._id;
     delete returnedObj.__v;
     delete returnedObj.passwordHash;

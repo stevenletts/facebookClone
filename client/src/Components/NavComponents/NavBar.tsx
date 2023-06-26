@@ -12,7 +12,7 @@ const NavBar = (): JSX.Element => {
 
   const handleLogout = () => {
     navigate("/");
-    dispatch(logout({ token: "", fullName: "", id: "" }));
+    dispatch(logout());
   };
   return (
     <div className="bg-blue-600 fixed w-full top-0 z-[1]">

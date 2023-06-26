@@ -1,20 +1,16 @@
 import mongoose, { InferSchemaType } from "mongoose";
 
-const PostSchema = new mongoose.Schema(
+const CommentSchema = new mongoose.Schema(
   {
-    post: { type: String, required: true },
+    comment: { type: String, required: true },
     likes: { type: [mongoose.Schema.Types.ObjectId], defaultValue: [] },
-    comments: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Comment",
-      deaultValue: [],
-    },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    post: { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
   },
   { timestamps: true }
 );
 
-PostSchema.set("toJSON", {
+CommentSchema.set("toJSON", {
   transform: (doc, returnedObj) => {
     returnedObj.id = returnedObj._id.toString();
     delete returnedObj._id;
@@ -22,8 +18,8 @@ PostSchema.set("toJSON", {
   },
 });
 
-type Post = InferSchemaType<typeof PostSchema>;
+type Comment = InferSchemaType<typeof CommentSchema>;
 
-const Post = mongoose.model("Post", PostSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
-export default Post;
+export default Comment;

@@ -5,6 +5,7 @@ import cors from "cors";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 import postRouter from "./routes/post";
+import commentRouter from "./routes/comments";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
+app.use("/api/comment", commentRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server with ts-node-dev");
