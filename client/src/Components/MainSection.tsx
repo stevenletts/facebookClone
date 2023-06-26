@@ -13,7 +13,6 @@ const MainSection = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(handleLoadNewsFeedPosts(auth.id));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -32,6 +32,9 @@ const signUp = async (request: Request, response: Response) => {
     id: newUser.id,
     fullName: newUser.fullName,
     friends: newUser.friends,
+    profileDescription: newUser.profileDescription,
+    bannerPicture: newUser.bannerPicture,
+    profilePicture: newUser.profilePicture,
   });
 };
 
@@ -56,7 +59,9 @@ const signIn = async (request: Request, response: Response) => {
     id: user.id,
     fullName: user.fullName,
     friends: user.friends,
-    description: user.profileDescription,
+    profileDescription: user.profileDescription,
+    bannerPicture: user.bannerPicture,
+    profilePicture: user.profilePicture,
   });
 };
 

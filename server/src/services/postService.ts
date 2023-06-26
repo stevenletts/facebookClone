@@ -34,10 +34,13 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
     friends.push(user.id);
 
     const newsFeed = await Post.find({ user: { $in: friends } })
-      .populate("user", { fullName: 1, id: 1 })
+      .populate("user", { fullName: 1, id: 1, profilePicture: 1 })
       .populate({
         path: "comments",
-        populate: { path: "user", select: { fullName: 1, id: 1 } },
+        populate: {
+          path: "user",
+          select: { fullName: 1, id: 1, profilePicture: 1 },
+        },
         select: populateFactory(),
       })
       .sort({
@@ -49,10 +52,13 @@ const getNewsFeedPosts = async (request: Request, response: Response) => {
   }
 
   const newsFeed = await Post.find({})
-    .populate("user", { fullName: 1, id: 1 })
+    .populate("user", { fullName: 1, id: 1, profilePicture: 1 })
     .populate({
       path: "comments",
-      populate: { path: "user", select: { fullName: 1, id: 1 } },
+      populate: {
+        path: "user",
+        select: { fullName: 1, id: 1, profilePicture: 1 },
+      },
       select: populateFactory(),
     })
     .sort({
@@ -68,10 +74,14 @@ const getProfilePosts = async (request: Request, response: Response) => {
     .populate("user", {
       fullName: 1,
       id: 1,
+      profilePicture: 1,
     })
     .populate({
       path: "comments",
-      populate: { path: "user", select: { fullName: 1, id: 1 } },
+      populate: {
+        path: "user",
+        select: { fullName: 1, id: 1, profilePicture: 1 },
+      },
       select: populateFactory(),
     })
     .sort({

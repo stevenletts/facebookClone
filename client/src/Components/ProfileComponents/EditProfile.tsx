@@ -1,12 +1,17 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useField";
 import userService from "../../services/userService";
 import { handleUpdateProfile, logout } from "../../reducers/authReducer";
 import { clearPosts } from "../../reducers/currentPostReducer";
 import TextAreaForm from "../TextAreaForm";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.min.css";
-//For image upload?
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
+import app from "../../firebase";
 
 interface IProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +23,10 @@ const EditProfile = ({ setOpen, setProDesc }: IProps) => {
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const [desc, setDesc] = useState("");
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [bannerImage, setBannerImage] = useState<File | null>(null);
+  const [profileImgUpProg, setProfileImgUpProg] = useState(0);
+  const [bannerImgUpProg, setBannerImgUpProg] = useState(0);
 
   const deleteAccount = () => {
     userService.deleteAccount(auth.id);
@@ -28,10 +37,76 @@ const EditProfile = ({ setOpen, setProDesc }: IProps) => {
   const addDescription = (event: React.SyntheticEvent) => {
     event.preventDefault();
     dispatch(handleUpdateProfile(auth.id, { profileDescription: desc }));
-
     setProDesc(desc);
     setDesc("");
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const uploadImage = (file: any, updatedPicture: string) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        if (updatedPicture === "profile") {
+          setProfileImgUpProg(Math.round(progress));
+        }
+        setBannerImgUpProg(Math.round(progress));
+
+        switch (snapshot.state) {
+          case "paused":
+            break;
+          case "running":
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          console.log(downloadURL);
+          if (updatedPicture === "profile") {
+            dispatch(
+              handleUpdateProfile(auth.id, { profilePicture: downloadURL })
+            );
+          }
+          dispatch(
+            handleUpdateProfile(auth.id, { bannerPicture: downloadURL })
+          );
+        });
+      }
+    );
+  };
+
+  useEffect(() => {
+    profileImage && uploadImage(profileImage, "profile");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileImage]);
+
+  useEffect(() => {
+    bannerImage && uploadImage(bannerImage, "banner");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bannerImage]);
 
   return (
     <>
@@ -45,8 +120,23 @@ const EditProfile = ({ setOpen, setProDesc }: IProps) => {
           </button>
           <h2 className="font-bold text-xl">Edit Profile</h2>
           <p>Choose a new profile picture</p>
-
+          {profileImgUpProg > 0 ? "Uploading " + profileImgUpProg + "%" : null}
+          <input
+            type="file"
+            className="bg-transparent bordeer border-slate-500 rounded p-2"
+            accept="image/*"
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            onChange={(e) => setProfileImage(e.target.files![0])}
+          />
           <p>Choose a new cover photo</p>
+          {bannerImgUpProg > 0 ? "Uploading " + bannerImgUpProg + "%" : null}
+          <input
+            type="file"
+            className="bg-transparent bordeer border-slate-500 rounded p-2"
+            accept="image/*"
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            onChange={(e) => setBannerImage(e.target.files![0])}
+          />
 
           <p>add a new description</p>
           <TextAreaForm

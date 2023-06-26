@@ -30,7 +30,15 @@ const Post = ({
   return (
     <div className="m-4 bg-white rounded flex flex-col gap-2">
       <section className="flex gap-4 items-center p-2">
-        <Icon path={mdiAccountCircle} size={2} />
+        {user.profilePicture === undefined ? (
+          <Icon path={mdiAccountCircle} size={2} />
+        ) : (
+          <img
+            src={user.profilePicture}
+            alt="custom user profile picture"
+            className="w-8 h-8"
+          />
+        )}
         <div className="flex flex-col">
           <Link to={`/profile/${user.id}`}>
             <h1 className="font-bold">{user.fullName}</h1>
