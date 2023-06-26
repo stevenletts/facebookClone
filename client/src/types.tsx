@@ -27,11 +27,14 @@ export interface IUser {
   posts?: string[];
   createdAt?: string;
   profileDescription?: string;
+  bannerPicture?: string;
+  profilePicture?: string;
 }
 
 export interface UserDetails {
   fullName: string;
   id: string;
+  profilePicture?: string;
 }
 
 export interface IComment {

@@ -58,7 +58,7 @@ const currentPostSlice = createSlice({
       );
     },
     loadPosts(_state, action) {
-      return action.payload;
+      return action.payload.length !== 0 ? action.payload : initialState;
     },
     clearPosts(_state, _action) {
       return initialState;

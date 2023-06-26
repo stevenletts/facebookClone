@@ -32,7 +32,15 @@ const Comment = ({
   return (
     <div className="mb-2 flex-col">
       <section className="flex gap-2">
-        <Icon path={mdiAccountCircle} size={1} />
+        {user.profilePicture === undefined ? (
+          <Icon path={mdiAccountCircle} size={1} />
+        ) : (
+          <img
+            src={user.profilePicture}
+            alt="custom user profile picture"
+            className="w-4 h-4"
+          />
+        )}
         <p>
           <Link to={`/profile/${user.id}`}>{user.fullName}</Link> {comment}
         </p>

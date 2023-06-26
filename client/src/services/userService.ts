@@ -10,8 +10,6 @@ const addFriend = async (userId: string, friendId: string) => {
   const response = await axios.put(`${baseurl}/friend/${friendId}`, {
     id: userId,
   });
-  console.log("addFriend");
-  console.log(response);
   return response.data;
 };
 

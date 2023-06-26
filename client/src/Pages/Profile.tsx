@@ -48,7 +48,11 @@ const Profile = (): JSX.Element => {
     <div className="mt-10">
       <div className="relative">
         <img
-          src="/src/assets/defaultCover.jpeg"
+          src={
+            user?.bannerPicture !== undefined
+              ? user?.bannerPicture
+              : "/src/assets/defaultCover.jpeg"
+          }
           alt="default cover photo that is a picture of Lake Lugano"
           className="w-full h-[320px] relative"
         ></img>

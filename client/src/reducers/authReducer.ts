@@ -10,6 +10,8 @@ const initialState = {
   id: "",
   friends: [""],
   profileDescription: "",
+  bannerPicture: "",
+  profilePicture: "",
 };
 
 const authSlice = createSlice({
