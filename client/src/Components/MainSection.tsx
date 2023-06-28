@@ -5,14 +5,20 @@ import Post from "./PostComponents/Post";
 import { useEffect } from "react";
 import { handleLoadNewsFeedPosts } from "../reducers/currentPostReducer";
 
-const MainSection = (): JSX.Element => {
+const MainSection = ({
+  fromProfilePage,
+}: {
+  fromProfilePage: boolean;
+}): JSX.Element => {
   const posts = useAppSelector((state) => state.currentPosts);
   const auth = useAppSelector((state) => state.auth);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(handleLoadNewsFeedPosts(auth.id));
+    if (!fromProfilePage) {
+      dispatch(handleLoadNewsFeedPosts(auth.id));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

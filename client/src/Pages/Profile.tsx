@@ -67,7 +67,7 @@ const Profile = (): JSX.Element => {
       </div>
       <div className="grid grid-cols-4 mt-10">
         <ProfileLeftSideBar {...user} />
-        <MainSection />
+        <MainSection fromProfilePage={true} />
       </div>
     </div>
   );

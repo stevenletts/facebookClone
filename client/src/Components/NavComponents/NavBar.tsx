@@ -12,6 +12,7 @@ const NavBar = (): JSX.Element => {
 
   const handleLogout = () => {
     navigate("/");
+    localStorage.clear();
     dispatch(logout());
   };
   return (

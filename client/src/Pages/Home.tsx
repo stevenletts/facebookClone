@@ -6,7 +6,7 @@ const Home = (): JSX.Element => {
   return (
     <div className="grid grid-cols-4 mt-10">
       <LeftSideBar />
-      <MainSection />
+      <MainSection fromProfilePage={false} />
       <RightSideBar />
     </div>
   );
