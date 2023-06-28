@@ -1,15 +1,16 @@
 import postService from "../services/postService";
+import { authCheck } from "../authorizationHelper";
 
 const postRouter = require("express").Router();
 
-postRouter.post("/", postService.newPost);
+postRouter.post("/", authCheck, postService.newPost);
 
-postRouter.get("/user/:id", postService.getProfilePosts);
+postRouter.get("/user/:id", authCheck, postService.getProfilePosts);
 
-postRouter.get("/newsfeed/:id", postService.getNewsFeedPosts);
+postRouter.get("/newsfeed/:id", authCheck, postService.getNewsFeedPosts);
 
-postRouter.put("/like/:id", postService.likePost);
+postRouter.put("/like/:id", authCheck, postService.likePost);
 
-postRouter.put("/removelike/:id", postService.removeLike);
+postRouter.put("/removelike/:id", authCheck, postService.removeLike);
 
 export default postRouter;

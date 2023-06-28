@@ -1,15 +1,16 @@
 import userService from "../services/userService";
+import { authCheck } from "../authorizationHelper";
 
 const userRouter = require("express").Router();
 
-userRouter.get("/find/:id", userService.getOne);
+userRouter.get("/find/:id", authCheck, userService.getOne);
 
-userRouter.put("/friend/:id", userService.addFriend);
+userRouter.put("/friend/:id", authCheck, userService.addFriend);
 
-userRouter.put("/unfriend/:id", userService.removeFriend);
+userRouter.put("/unfriend/:id", authCheck, userService.removeFriend);
 
-userRouter.delete("/accountDelete/:id", userService.deleteAccount);
+userRouter.delete("/accountDelete/:id", authCheck, userService.deleteAccount);
 
-userRouter.put("/:id", userService.updateAccount);
+userRouter.put("/:id", authCheck, userService.updateAccount);
 
 export default userRouter;

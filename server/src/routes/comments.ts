@@ -1,11 +1,12 @@
 import commentService from "../services/commentService";
+import { authCheck } from "../authorizationHelper";
 
 const commentRouter = require("express").Router();
 
-commentRouter.post("/:id", commentService.newComment);
+commentRouter.post("/:id", authCheck, commentService.newComment);
 
-commentRouter.put("/like/", commentService.addLike);
+commentRouter.put("/like/", authCheck, commentService.addLike);
 
-commentRouter.put("/removelike/", commentService.removeLike);
+commentRouter.put("/removelike/", authCheck, commentService.removeLike);
 
 export default commentRouter;
