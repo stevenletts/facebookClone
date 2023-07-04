@@ -19,7 +19,7 @@ export const authCheck = (
 
     // header not being set in netlify ?
     if (authorizationReady === null) {
-      next();
+      return next();
     }
     const { id } = jwt.verify(
       authorizationReady,
