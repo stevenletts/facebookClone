@@ -16,6 +16,11 @@ export const authCheck = (
   const authorization = request.get("Authorization");
   if (authorization && authorization.startsWith("Bearer ")) {
     const authorizationReady = authorization.replace("Bearer ", "");
+
+    // header not being set in netlify ?
+    if (authorizationReady === null) {
+      next();
+    }
     const { id } = jwt.verify(
       authorizationReady,
       process.env.JWT!
